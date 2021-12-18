@@ -1,3 +1,25 @@
+#  MIT License
+#
+#  Copyright (c) 2021 Obaydah BOUIFADENE
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#  SOFTWARE.
+
 import json
 import time
 import validators
@@ -9,6 +31,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 link = input("please enter the link of the book : ")
 if not validators.url(link):
     raise RuntimeError("not a url")
@@ -19,7 +42,11 @@ def initialize_selenium():
     capabilities["goog:loggingPrefs"] = {"performance": "ALL"}  # chromedriver 75+
 
     chrome_options = Options()
-    chrome_options.binary_location = "/usr/bin/brave-browser"
+
+    chrome_options.binary_location = input("please enter the path of the chromium based driver /version 92 - for more assistance "
+                                           "on that regard please open an issue in the github repo ")
+    # "/usr/bin/brave-browser "
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
     return webdriver.Chrome(chrome_options=chrome_options, desired_capabilities=capabilities)
